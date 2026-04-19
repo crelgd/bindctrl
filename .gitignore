@@ -1,0 +1,9 @@
+*vcxproj.user
+*vcxproj.filters
+*.exe
+*.zip
+Release
+bin
+bindctrl
+ViGEm
+lib
