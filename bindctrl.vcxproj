@@ -75,24 +75,28 @@
     <IncludePath>include</IncludePath>
     <GenerateManifest>false</GenerateManifest>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <OutDir>$(SolutionDir)bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(WindowsSDK_LibraryPath_x64);lib;$(VC_LibraryPath_x64)</LibraryPath>
     <IncludePath>include</IncludePath>
     <GenerateManifest>false</GenerateManifest>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <OutDir>$(SolutionDir)bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <GenerateManifest>false</GenerateManifest>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);lib</LibraryPath>
     <IncludePath>include</IncludePath>
+    <OutDir>$(SolutionDir)bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <GenerateManifest>false</GenerateManifest>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);lib</LibraryPath>
     <IncludePath>include</IncludePath>
+    <OutDir>$(SolutionDir)bin</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Xinput.lib;Xinput9_1_0.lib;SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
       <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
     </Link>
   </ItemDefinitionGroup>
@@ -128,7 +132,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Xinput.lib;Xinput9_1_0.lib;SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
       <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
     </Link>
   </ItemDefinitionGroup>
@@ -146,7 +150,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Xinput.lib;Xinput9_1_0.lib;SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
       <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
     </Link>
   </ItemDefinitionGroup>
@@ -166,7 +170,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Xinput.lib;Xinput9_1_0.lib;SetupAPI.Lib;ViGEmClient.lib</AdditionalDependencies>
       <AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
     </Link>
   </ItemDefinitionGroup>

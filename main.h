@@ -13,7 +13,11 @@ public:
 	vigemDriver();
 	~vigemDriver();
 
+	XINPUT_STATE xState;
+
 private:
 	PVIGEM_CLIENT dClient;
 	VIGEM_ERROR dConnection;
+	PVIGEM_TARGET hPad;
+	int addBusf;
 };
