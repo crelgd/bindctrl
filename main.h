@@ -9,53 +9,73 @@
 
 #define DIRECTION_SIZE	1024
 
-#define HHOOK_PATH		"pdevEvent.dll"
-#define HHOOK_KEYBOARD	"_EventKeyboardCheck@12"
+//#define HHOOK_PATH		"pdevEvent.dll"
+//#define HHOOK_KEYBOARD	"_EventKeyboardCheck@12"
 
-#define PIPE_CHANNEL_NAME L"\\\\.\\pipe\\CRELGD_PDEVHOOK"
-#define PIPE_SIZE		  1024	
+//#define PIPE_CHANNEL_NAME L"\\\\.\\pipe\\CRELGD_PDEVHOOK"
+//#define PIPE_SIZE		  1024	
 
 LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam);
 
 class vigemDriver
 {
 public:
-	vigemDriver();
+	void Init();
 	~vigemDriver();
-
+	
 	XINPUT_STATE xState;
+	PVIGEM_TARGET hPad;
+	PVIGEM_CLIENT dClient;
 
 private:
-	PVIGEM_CLIENT dClient;
 	VIGEM_ERROR dConnection;
-	PVIGEM_TARGET hPad;
 	int addBusf;
 };
+
+typedef struct InData_VD {
+	DWORD cK = 0;
+	bool read = true;
+	PVIGEM_CLIENT* dClient;
+	PVIGEM_TARGET* hPad;
+} InData;
+
+extern InData iData;
 
 class _Hook
 {
 public:
-	_Hook(wchar_t* hmPath, int pathSize);
+	_Hook();
 	~_Hook();
 
-	void Keyboard();
+	void Keyboard(HINSTANCE hInstance);
 
 private:
-	HMODULE hHook;
-	wchar_t* hmPathc;
 	HOOKPROC hpKeyboard;
 	HHOOK HookQueueKeyboard;
 };
 
+/*
 class _Pipe
 {
 public:
-	_Pipe();
+	void Init();
 	~_Pipe();
 
 private:
 	HANDLE NamedPipe;
 };
+*/
+/*
+class Share
+{
+public:
+	void Init();
+	~Share();
+
+private:
+	HANDLE fMapping;
+};
+*/
 
 void FilePathNearbyMain(
 	char* dst,
@@ -66,4 +86,4 @@ void FilePathNearbyMain(
 
 int ConvertWSTR(char* in, wchar_t* out, int wcharLen);
 
-extern HANDLE pipe;
+

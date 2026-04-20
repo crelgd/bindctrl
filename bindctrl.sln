@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bindctrl", "bindctrl.vcxproj", "{C350694B-1F7C-4F82-B5D8-C21954D27C89}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdevEvent", "pdevEvent\pdevEvent.vcxproj", "{E3DADC94-EDA7-4BFE-B6C1-789E4E176143}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

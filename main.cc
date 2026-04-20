@@ -21,12 +21,13 @@ void printAllBtns(vigemDriver* device)
 	printf("%02X\n", device->xState.Gamepad.sThumbRX);
 	printf("%02X\n", device->xState.Gamepad.sThumbRY);
 	printf("%02X\n", device->xState.Gamepad.wButtons);
-}
+}	
 */
 // TODO: сделать кароч хук для отслеживаня событий
 //		 и патом посылать сообщения в контролер
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
+	/* ne nado ved ne ispolzuyu dllku
 	char hmPath[DIRECTION_SIZE] = { 0 };
 
 	FilePathNearbyMain(hmPath, DIRECTION_SIZE, HHOOK_PATH, strlen(HHOOK_PATH));
@@ -38,23 +39,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	if (ConvertWSTR(hmPath, ohmPath, hmPathSize+1) != 0) {
 		return 1;
 	}
+	*/ 
+
+	_Hook hook;
+
+	vigemDriver vd;
 
 	try
 	{
-		vigemDriver vd;
+		hook.Keyboard(hInstance);
+		vd.Init();
 
-		HANDLE pipe = CreateFileW(
-			PIPE_CHANNEL_NAME,
-			GENERIC_WRITE,
-			FILE_SHARE_READ,
-			NULL,
-			OPEN_EXISTING,
-			FILE_ATTRIBUTE_NORMAL,
-			NULL
-		);
-
-		_Hook hook(ohmPath, hmPathSize + 1);
-		hook.Keyboard();
+		iData.dClient = &vd.dClient;
+		iData.hPad = &vd.hPad;
 	}
 	catch (runtime_error& err)
 	{
@@ -72,7 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	return 0;
 }
 
-vigemDriver::vigemDriver()
+void vigemDriver::Init()
 {
 	dClient = vigem_alloc();
 	if (!dClient)
@@ -108,7 +105,8 @@ vigemDriver::~vigemDriver()
 	}
 }
 
-_Pipe::_Pipe()
+/*
+void _Pipe::Init()
 {
 	NamedPipe = CreateNamedPipe(
 		PIPE_CHANNEL_NAME,
@@ -143,3 +141,4 @@ _Pipe::~_Pipe()
 {
 	CloseHandle(NamedPipe);
 }
+*/

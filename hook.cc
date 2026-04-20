@@ -5,21 +5,18 @@
 
 #include "main.h"
 
-_Hook::_Hook(wchar_t* hmPath, int pathSize)
+_Hook::_Hook()
 {
-	//hHook = LoadLibraryW(hmPath);
-	//if (!hHook) throw runtime_error("Hook loading err");
-	hmPathc = hmPath;
+	// null
 }
 
 _Hook::~_Hook()
 {
-	delete[] hmPathc;
 	UnhookWindowsHookEx(HookQueueKeyboard);
-	FreeLibrary(hHook);
+	// FreeLibrary(hDLL);
 }
 
-void _Hook::Keyboard()
+void _Hook::Keyboard(HINSTANCE hInstance)
 {
 	//hpKeyboard = (HOOKPROC)GetProcAddress(hHook, HHOOK_KEYBOARD);
 	//if (!hpKeyboard) {
@@ -30,11 +27,11 @@ void _Hook::Keyboard()
 	HookQueueKeyboard = SetWindowsHookEx(
 		WH_KEYBOARD_LL,
 		EventKeyboardCheck,
-		NULL,
+		hInstance,
 		0
 	);
 	if (!HookQueueKeyboard) {
-		FreeLibrary(hHook);
+		//FreeLibrary(hHook);
 		throw runtime_error("keyboard queue doesnt load");
 	}
 }

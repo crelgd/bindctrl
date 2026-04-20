@@ -7,24 +7,35 @@
 #include <format>
 #include "main.h"
 
+InData iData;
+
 LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 {
-	if (code < 0)
-		return CallNextHookEx(NULL, code, wParam, lParam);
+	KBDLLHOOKSTRUCT* kdb;
+	DWORD vk;
 
 	switch (code)
 	{
-	case HC_ACTION:
+		case HC_ACTION:
 		{
-			KBDLLHOOKSTRUCT* kdb = (KBDLLHOOKSTRUCT*) lParam;
+			if (wParam == WM_KEYDOWN) {
+				kdb = (KBDLLHOOKSTRUCT*)lParam;
+				vk = kdb->vkCode;
 
-			DWORD vk = kdb->vkCode;
+				iData.cK = vk;
+				iData.read = false;
 
-			DWORD wData;
+				XUSB_REPORT xu = {};
+				xu.wButtons = XINPUT_GAMEPAD_A;
 
-			WriteFile(pipe, &vk, sizeof(vk), &wData, NULL);
-
-			OutputDebugStringA(std::format("Writed {}\n", vk).c_str());
+				if (iData.cK == 'W')
+					vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+			}
+			else {
+				XUSB_REPORT xu = {};
+				xu.wButtons = 0x0000;
+				vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+			}
 		}
 		break;
 	}
