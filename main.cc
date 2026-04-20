@@ -1,9 +1,11 @@
-/*
+п»ї/*
  * MIT License
  * Copyright (c) 2026 crelgd
  */
 
 #include "main.h"
+#include "bindf.h"
+
 #include <string>
 // #include <cstdio>
 
@@ -11,7 +13,7 @@ using namespace std;
 
 HANDLE pipe;
 
-/* эта хуйня прост для теста событий
+/* СЌС‚Р° С…СѓР№РЅСЏ РїСЂРѕСЃС‚ РґР»СЏ С‚РµСЃС‚Р° СЃРѕР±С‹С‚РёР№
 void printAllBtns(vigemDriver* device)
 {
 	printf("%02X\n", device->xState.Gamepad.bLeftTrigger);
@@ -23,8 +25,8 @@ void printAllBtns(vigemDriver* device)
 	printf("%02X\n", device->xState.Gamepad.wButtons);
 }	
 */
-// TODO: сделать кароч хук для отслеживаня событий
-//		 и патом посылать сообщения в контролер
+// TODO: СЃРґРµР»Р°С‚СЊ РєР°СЂРѕС‡ С…СѓРє РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅСЏ СЃРѕР±С‹С‚РёР№
+//		 Рё РїР°С‚РѕРј РїРѕСЃС‹Р»Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ РІ РєРѕРЅС‚СЂРѕР»РµСЂ
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 	/* ne nado ved ne ispolzuyu dllku
@@ -42,11 +44,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	*/ 
 
 	_Hook hook;
-
 	vigemDriver vd;
+	BindF_File bff;
 
 	try
 	{
+		char cmPath[DIRECTION_SIZE] = { 0 };
+
+		FilePathNearbyMain(cmPath, DIRECTION_SIZE, CONFIG_NAME, strlen(CONFIG_NAME));
+
+		string filename(cmPath);
+
+		bff.ReadFile(filename);
+		bff.Parse();
+
 		hook.Keyboard(hInstance);
 		vd.Init();
 

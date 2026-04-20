@@ -179,6 +179,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bindf.cc" />
     <ClCompile Include="event.cc" />
     <ClCompile Include="hook.cc" />
     <ClCompile Include="main.cc" />
@@ -193,6 +194,7 @@
     <ClCompile Include="str.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\bindf.h" />
     <ClInclude Include="include\pch.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

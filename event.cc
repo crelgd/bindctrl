@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MIT License
  * Copyright (c) 2026 crelgd
  */
@@ -9,6 +9,7 @@
 
 InData iData;
 
+// ТУДУ сделать кароч конфиг с расладкой 
 LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 {
 	KBDLLHOOKSTRUCT* kdb;
