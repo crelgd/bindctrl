@@ -14,6 +14,9 @@ typedef struct {
 	DWORD id;
 } PatternData;
 
+#define MOUSE_LEFT		0x002101
+#define MOUSE_RIGHT		0x002111
+
 #define PATTERN_SIZE 14
 const PatternData padPattern[] = {
 	{"BOX_A",		XINPUT_GAMEPAD_A			},
@@ -32,10 +35,12 @@ const PatternData padPattern[] = {
 	{"BOX_RS",		XINPUT_GAMEPAD_RIGHT_SHOULDER}
 };
 const PatternData Keys[] = {
-	{"UP", VK_UP},
-	{"DOWN", VK_DOWN},
-	{"LEFT", VK_LEFT},
-	{"RIGHT", VK_RIGHT}
+	{"UP",		VK_UP		},
+	{"DOWN",	VK_DOWN		},
+	{"LEFT",	VK_LEFT		},
+	{"RIGHT",	VK_RIGHT	},
+	{"MLEFT",	MOUSE_LEFT	},
+	{"MRIGHT",	MOUSE_RIGHT	}
 };
 
 typedef struct {

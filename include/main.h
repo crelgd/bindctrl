@@ -93,4 +93,6 @@ void FilePathNearbyMain(
 
 int ConvertWSTR(char* in, wchar_t* out, int wcharLen);
 
+DWORD SearchMouseKey(char sData);
+
 extern ParseData* pd;

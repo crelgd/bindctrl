@@ -16,6 +16,8 @@ BindF_File::~BindF_File()
 void BindF_File::ReadFile(string filename)
 {
 	ifstream file(filename, ios::binary);
+
+	if (!file) throw runtime_error("file read err");
 	
 	file.seekg(0, ios::end);
 	size_t size = file.tellg();

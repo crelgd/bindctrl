@@ -49,6 +49,10 @@ LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 	return CallNextHookEx(NULL, code, wParam, lParam);
 }
 
+int lastX = 0;
+int lastY = 0;
+bool first = true;
+
 LRESULT WINAPI EventMouseCheck(int code, WPARAM wParam, LPARAM lParam)
 {
 	int centerX = GetSystemMetrics(SM_CXSCREEN) / 2;
@@ -58,50 +62,81 @@ LRESULT WINAPI EventMouseCheck(int code, WPARAM wParam, LPARAM lParam)
 	{
 		MSLLHOOKSTRUCT* mouse = (MSLLHOOKSTRUCT*)lParam;
 		XUSB_REPORT xu = {};
+		vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 
 		switch (wParam) {
-		case WM_MOUSEMOVE:
+		case WM_MOUSEMOVE: // туду переписать нахуй
 		{
-			int x = (mouse->pt.x - centerX) * 300;
-			int y = (mouse->pt.y - centerY) * 300;
+			if (first) {
+				lastX = mouse->pt.x;
+				lastY = mouse->pt.y;
+				first = false;
+				break;
+			}
 
-			if (x > MAXSHORT) x = MAXSHORT-1;
-			if (x < -(MAXSHORT)) x = -(MAXSHORT-1);
-			if (y > MAXSHORT) y = -(MAXSHORT-1);
-			if (y < -(MAXSHORT)) y = (MAXSHORT - 1);
+			int dx = mouse->pt.x - lastX;
+			int dy = mouse->pt.y - lastY;
+
+			lastX = mouse->pt.x;
+			lastY = mouse->pt.y;
+
+			int x = dy * 300;
+			int y = dx * 300;
+
+			if (x > MAXSHORT) x = MAXSHORT - 1;
+			if (x < -MAXSHORT) x = -MAXSHORT + 1;
+			if (y > MAXSHORT) y = MAXSHORT - 1;
+			if (y < -MAXSHORT) y = -MAXSHORT + 1;
 
 			xu.sThumbRX = x;
 			xu.sThumbRY = y;
-
-			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+			 
+			if (lastX != mouse->pt.x || lastY != mouse->pt.y)
+				vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 		}
 		break;
 
 		case WM_LBUTTONDOWN:
 		{
-
+			xu.wButtons = SearchMouseKey(MOUSE_LEFT);
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 		}
 		break;
 
 		case WM_LBUTTONUP:
 		{
-
+			xu.wButtons = 0;
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 		}
 		break;
 
 		case WM_RBUTTONDOWN:
 		{
-
+			xu.wButtons = SearchMouseKey(MOUSE_RIGHT);
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 		}
 		break;
 
 		case WM_RBUTTONUP:
 		{
-
+			xu.wButtons = 0;
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 		}
 		break;
 		}
 	}
 
 	return CallNextHookEx(NULL, code, wParam, lParam);
+}
+
+DWORD SearchMouseKey(char sData)
+{
+	for (int i = 0; i < iData.pd_lines; i++)
+	{
+		if (pd[i].btn == sData) {
+			return pd[i].btnPad;
+		}
+	}
+
+	return NULL;
 }
