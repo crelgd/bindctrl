@@ -13,6 +13,7 @@ _Hook::_Hook()
 _Hook::~_Hook()
 {
 	UnhookWindowsHookEx(HookQueueKeyboard);
+	UnhookWindowsHookEx(HookQueueMouse);
 	// FreeLibrary(hDLL);
 }
 
@@ -27,11 +28,24 @@ void _Hook::Keyboard(HINSTANCE hInstance)
 	HookQueueKeyboard = SetWindowsHookEx(
 		WH_KEYBOARD_LL,
 		EventKeyboardCheck,
-		hInstance,
+		NULL,
 		0
 	);
 	if (!HookQueueKeyboard) {
 		//FreeLibrary(hHook);
 		throw runtime_error("keyboard queue doesnt load");
+	}
+}
+
+void _Hook::Mouse(HINSTANCE hInstance)
+{
+	HookQueueMouse = SetWindowsHookEx(
+		WH_MOUSE_LL,
+		EventMouseCheck,
+		NULL,
+		0
+	);
+	if (!HookQueueMouse) {
+		throw runtime_error("mouse queue doesnt load");
 	}
 }

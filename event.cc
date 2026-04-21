@@ -12,33 +12,95 @@ InData iData;
 // ТУДУ сделать кароч конфиг с расладкой 
 LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 {
-	KBDLLHOOKSTRUCT* kdb;
-	DWORD vk;
-
 	switch (code)
 	{
-		case HC_ACTION:
-		{
-			if (wParam == WM_KEYDOWN) {
-				kdb = (KBDLLHOOKSTRUCT*)lParam;
-				vk = kdb->vkCode;
+	case HC_ACTION:
+	{
+		KBDLLHOOKSTRUCT* kdb;
+		DWORD vk;
 
-				iData.cK = vk;
-				iData.read = false;
+		XUSB_REPORT xu = {};
 
-				XUSB_REPORT xu = {};
-				xu.wButtons = XINPUT_GAMEPAD_A;
+		if (wParam == WM_KEYDOWN) {
+			kdb = (KBDLLHOOKSTRUCT*)lParam;
+			vk = kdb->vkCode;
 
-				if (iData.cK == 'W')
+			iData.cK = vk;
+			iData.read = false;
+
+			xu.wButtons = xu.wButtons | XINPUT_GAMEPAD_A;
+
+			int pd_size = iData.pd_lines;
+			for (int i = 0; i < pd_size; i++) {
+				if (kdb->vkCode == pd[i].btn) {
+					xu.wButtons = pd[i].btnPad;
 					vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
-			}
-			else {
-				XUSB_REPORT xu = {};
-				xu.wButtons = 0x0000;
-				vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+				}
 			}
 		}
+		else {
+			xu.wButtons = 0x0000;
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+		}
+	}
+	break;
+	}
+
+	return CallNextHookEx(NULL, code, wParam, lParam);
+}
+
+LRESULT WINAPI EventMouseCheck(int code, WPARAM wParam, LPARAM lParam)
+{
+	int centerX = GetSystemMetrics(SM_CXSCREEN) / 2;
+	int centerY = GetSystemMetrics(SM_CYSCREEN) / 2;
+
+	if (code == HC_ACTION)
+	{
+		MSLLHOOKSTRUCT* mouse = (MSLLHOOKSTRUCT*)lParam;
+		XUSB_REPORT xu = {};
+
+		switch (wParam) {
+		case WM_MOUSEMOVE:
+		{
+			int x = (mouse->pt.x - centerX) * 300;
+			int y = (mouse->pt.y - centerY) * 300;
+
+			if (x > MAXSHORT) x = MAXSHORT-1;
+			if (x < -(MAXSHORT)) x = -(MAXSHORT-1);
+			if (y > MAXSHORT) y = -(MAXSHORT-1);
+			if (y < -(MAXSHORT)) y = (MAXSHORT - 1);
+
+			xu.sThumbRX = x;
+			xu.sThumbRY = y;
+
+			vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
+		}
 		break;
+
+		case WM_LBUTTONDOWN:
+		{
+
+		}
+		break;
+
+		case WM_LBUTTONUP:
+		{
+
+		}
+		break;
+
+		case WM_RBUTTONDOWN:
+		{
+
+		}
+		break;
+
+		case WM_RBUTTONUP:
+		{
+
+		}
+		break;
+		}
 	}
 
 	return CallNextHookEx(NULL, code, wParam, lParam);

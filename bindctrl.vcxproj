@@ -196,7 +196,7 @@
   <ItemGroup>
     <ClInclude Include="include\bindf.h" />
     <ClInclude Include="include\pch.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="include\main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

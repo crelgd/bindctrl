@@ -4,27 +4,14 @@
  */
 
 #include "main.h"
-#include "bindf.h"
 
 #include <string>
 // #include <cstdio>
 
 using namespace std;
 
-HANDLE pipe;
+ParseData* pd;
 
-/* эта хуйня прост для теста событий
-void printAllBtns(vigemDriver* device)
-{
-	printf("%02X\n", device->xState.Gamepad.bLeftTrigger);
-	printf("%02X\n", device->xState.Gamepad.bRightTrigger);
-	printf("%02X\n", device->xState.Gamepad.sThumbLX);
-	printf("%02X\n", device->xState.Gamepad.sThumbLY);
-	printf("%02X\n", device->xState.Gamepad.sThumbRX);
-	printf("%02X\n", device->xState.Gamepad.sThumbRY);
-	printf("%02X\n", device->xState.Gamepad.wButtons);
-}	
-*/
 // TODO: сделать кароч хук для отслеживаня событий
 //		 и патом посылать сообщения в контролер
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
@@ -58,7 +45,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		bff.ReadFile(filename);
 		bff.Parse();
 
+		pd = bff.pd;
+
 		hook.Keyboard(hInstance);
+		hook.Mouse(hInstance);
 		vd.Init();
 
 		iData.dClient = &vd.dClient;

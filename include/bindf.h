@@ -31,6 +31,12 @@ const PatternData padPattern[] = {
 	{"BOX_LS",		XINPUT_GAMEPAD_LEFT_SHOULDER},
 	{"BOX_RS",		XINPUT_GAMEPAD_RIGHT_SHOULDER}
 };
+const PatternData Keys[] = {
+	{"UP", VK_UP},
+	{"DOWN", VK_DOWN},
+	{"LEFT", VK_LEFT},
+	{"RIGHT", VK_RIGHT}
+};
 
 typedef struct {
 	char btn;
@@ -50,6 +56,7 @@ public:
 private:
 	bool CheckParse();
 	void CheckPattern(string arr, int cur_line);
+	void CheckKeysPattern(string arr, int cur_line);
 
 	vector<char> fData;
 };

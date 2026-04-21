@@ -4,6 +4,7 @@
  */
 
 #include "bindf.h"
+#include "main.h"
 
 #include <fstream>
 
@@ -48,6 +49,8 @@ void BindF_File::Parse()
 		if (fData[i] == '\n') lines++;
 	}
 
+	iData.pd_lines = lines;
+
 	pd = new ParseData[lines+1];
 
 	int cur_line = 0;
@@ -62,7 +65,10 @@ void BindF_File::Parse()
 			continue;
 			break;
 		case ':':
-			pd[cur_line].btn = arr.c_str()[0];
+			if (arr.length() > 1) {
+				CheckKeysPattern(arr, cur_line);
+			}
+			else pd[cur_line].btn = arr.c_str()[0];
 			arr = "";
 			continue;
 			break;
@@ -93,6 +99,16 @@ void BindF_File::CheckPattern(string arr, int cur_line)
 	for (int i = 0; i < PATTERN_SIZE; i++) {
 		if (memcmp(arr.c_str(), padPattern[i].name, strlen(padPattern[i].name)) == 0) {
 			pd[cur_line].btnPad = padPattern[i].id;
+			break;
+		}
+	}
+}
+
+void BindF_File::CheckKeysPattern(string arr, int cur_line)
+{
+	for (int i = 0; i < PATTERN_SIZE; i++) {
+		if (memcmp(arr.c_str(),Keys[i].name, strlen(Keys[i].name)) == 0) {
+			pd[cur_line].btn = Keys[i].id;
 			break;
 		}
 	}
