@@ -179,11 +179,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bindf.cc" />
-    <ClCompile Include="event.cc" />
-    <ClCompile Include="hook.cc" />
-    <ClCompile Include="main.cc" />
-    <ClCompile Include="pch.cc">
+    <ClCompile Include="core\bindf.cc" />
+    <ClCompile Include="core\event.cc" />
+    <ClCompile Include="core\hook.cc" />
+    <ClCompile Include="core\main.cc" />
+    <ClCompile Include="core\pch.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -191,7 +191,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="str.cc" />
+    <ClCompile Include="core\str.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\bindf.h" />

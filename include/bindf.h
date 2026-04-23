@@ -16,6 +16,10 @@ typedef struct {
 
 #define MOUSE_LEFT		0x002101
 #define MOUSE_RIGHT		0x002111
+#define BOX_R_UP		0x00FDE8
+#define BOX_R_DOWN		0x00FDE9
+#define BOX_R_LEFT		0x00FDEA
+#define BOX_R_RIGHT		0x00FDEB
 
 #define PATTERN_SIZE 14
 const PatternData padPattern[] = {
@@ -32,7 +36,11 @@ const PatternData padPattern[] = {
 	{"BOX_LT",		XINPUT_GAMEPAD_LEFT_THUMB	},
 	{"BOX_RT",		XINPUT_GAMEPAD_RIGHT_THUMB	},
 	{"BOX_LS",		XINPUT_GAMEPAD_LEFT_SHOULDER},
-	{"BOX_RS",		XINPUT_GAMEPAD_RIGHT_SHOULDER}
+	{"BOX_RS",		XINPUT_GAMEPAD_RIGHT_SHOULDER},
+	{"BOX_RUP",		BOX_R_UP					},
+	{"BOX_RDOWN",	BOX_R_DOWN					},
+	{"BOX_RLEFT",	BOX_R_LEFT					},
+	{"BOX_RRIGHT",	BOX_R_RIGHT					}
 };
 const PatternData Keys[] = {
 	{"UP",		VK_UP		},

@@ -92,7 +92,10 @@ void FilePathNearbyMain(
 );
 
 int ConvertWSTR(char* in, wchar_t* out, int wcharLen);
-
 DWORD SearchMouseKey(char sData);
+
+#define MOUSE_EVENT		6071
+
+int CheckMouseEvent(DWORD btnPad);
 
 extern ParseData* pd;

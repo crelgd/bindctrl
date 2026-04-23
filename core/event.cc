@@ -5,6 +5,7 @@
 
 #define PDEV_EXPORTS
 #include <format>
+
 #include "main.h"
 
 InData iData;
@@ -33,7 +34,36 @@ LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 			int pd_size = iData.pd_lines;
 			for (int i = 0; i < pd_size; i++) {
 				if (kdb->vkCode == pd[i].btn) {
-					xu.wButtons = pd[i].btnPad;
+					if (!CheckMouseEvent(pd[i].btnPad)) xu.wButtons = pd[i].btnPad;
+					else {
+						switch (pd[i].btnPad)
+						{
+						case BOX_R_UP:
+						{
+							xu.sThumbLY = MAXSHORT - 1;
+						}
+						break;
+
+						case BOX_R_DOWN:
+						{
+							xu.sThumbLY = -(MAXSHORT - 1);
+						}
+						break;
+
+						case BOX_R_LEFT:
+						{
+							xu.sThumbLX =  (MAXSHORT - 1);
+						}
+						break;
+
+						case BOX_R_RIGHT:
+						{
+							xu.sThumbLX = MAXSHORT - 1;
+						}
+						break;
+						}
+					}
+
 					vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 				}
 			}
@@ -139,4 +169,13 @@ DWORD SearchMouseKey(char sData)
 	}
 
 	return NULL;
+}
+
+int CheckMouseEvent(DWORD btnPad)
+{
+	for (int i = 0; i < 4; i++) {
+		if (btnPad == BOX_R_UP + i) return MOUSE_EVENT;
+	}
+
+	return 0;
 }
