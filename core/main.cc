@@ -12,8 +12,6 @@ using namespace std;
 
 ParseData* pd;
 
-// TODO: сделать кароч хук для отслеживаня событий
-//		 и патом посылать сообщения в контролер
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 	/* ne nado ved ne ispolzuyu dllku

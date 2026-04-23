@@ -9,7 +9,7 @@
 #include "bindf.h"
 
 #define DIRECTION_SIZE	1024
-#define CONFIG_NAME	"config.conf"
+#define CONFIG_NAME	"conf.ini"
 
 //#define HHOOK_PATH		"pdevEvent.dll"
 //#define HHOOK_KEYBOARD	"_EventKeyboardCheck@12"

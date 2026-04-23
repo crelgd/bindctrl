@@ -10,7 +10,6 @@
 
 InData iData;
 
-// ТУДУ сделать кароч конфиг с расладкой 
 LRESULT WINAPI EventKeyboardCheck(int code, WPARAM wParam, LPARAM lParam)
 {
 	switch (code)
@@ -95,7 +94,7 @@ LRESULT WINAPI EventMouseCheck(int code, WPARAM wParam, LPARAM lParam)
 		vigem_target_x360_update(*iData.dClient, *iData.hPad, xu);
 
 		switch (wParam) {
-		case WM_MOUSEMOVE: // туду переписать нахуй
+		case WM_MOUSEMOVE: // переписать нахуй
 		{
 			if (first) {
 				lastX = mouse->pt.x;
@@ -116,7 +115,9 @@ LRESULT WINAPI EventMouseCheck(int code, WPARAM wParam, LPARAM lParam)
 			if (x > MAXSHORT) x = MAXSHORT - 1;
 			if (x < -MAXSHORT) x = -MAXSHORT + 1;
 			if (y > MAXSHORT) y = MAXSHORT - 1;
-			if (y < -MAXSHORT) y = -MAXSHORT + 1;
+			if (y < -MAXSHORT) y = -MAXSHORT + 1;	
+
+			// это пищдец
 
 			xu.sThumbRX = x;
 			xu.sThumbRY = y;
