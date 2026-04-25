@@ -7,6 +7,9 @@
 
 #include "ViGEm/Client.h"
 #include "bindf.h"
+#include "python/Python.h"
+
+#define MAIN_PY		"bindgd\\main.py"
 
 #define DIRECTION_SIZE	1024
 #define CONFIG_NAME	"conf.ini"
@@ -83,6 +86,16 @@ private:
 	HANDLE fMapping;
 };
 */
+
+class Python {
+public:
+	void Init();
+	~Python();
+
+private:
+	PyStatus status;
+	PyConfig config;
+};
 
 void FilePathNearbyMain(
 	char* dst,

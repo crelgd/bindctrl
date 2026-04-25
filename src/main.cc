@@ -14,20 +14,6 @@ ParseData* pd;
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
-	/* ne nado ved ne ispolzuyu dllku
-	char hmPath[DIRECTION_SIZE] = { 0 };
-
-	FilePathNearbyMain(hmPath, DIRECTION_SIZE, HHOOK_PATH, strlen(HHOOK_PATH));
-
-	int hmPathSize = strlen(hmPath);
-
-	wchar_t* ohmPath = new wchar_t[hmPathSize + 1];
-
-	if (ConvertWSTR(hmPath, ohmPath, hmPathSize+1) != 0) {
-		return 1;
-	}
-	*/ 
-
 	_Hook hook;
 	vigemDriver vd;
 	BindF_File bff;
