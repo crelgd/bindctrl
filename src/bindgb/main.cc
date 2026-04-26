@@ -85,7 +85,14 @@ int main()
 		freopen_s(&stream, "CONOUT$", "w", stderr);
 	}
 
-	return py.Py_Main(__argc, __wargv);
+	wchar_t fMain[] = L"launcher\\main.py";
+
+	wchar_t exeMain[2048];
+	GetModuleFileNameW(NULL, exeMain, 2048);
+
+	wchar_t* argv[2] = { exeMain, fMain };
+
+	return py.Py_Main(2, argv);
 }
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
